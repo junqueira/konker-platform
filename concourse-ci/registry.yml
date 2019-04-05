@@ -139,7 +139,7 @@ jobs:
           echo run tests...
           mvn -f github-repo-stg/pom.xml clean compile test
           echo packaging...
-          mvn -f github-repo-stg/pom.xml -DskipTests=true package install
+          mvn -f github-repo-stg/pom.xml -DskipTests=true install
           echo copy packages...
           mv github-repo-stg/konker.registry.web/target/registry.war jars/registry-$(cat version-stg/version).war
           mv github-repo-stg/konker.registry.api/target/registry-api.jar jars/registry-api-$(cat version-stg/version).jar
@@ -180,8 +180,8 @@ jobs:
     passed:
     - test-and-package-stg
     version: latest
-  - get: github-repo-stg
     trigger: true
+  - get: github-repo-stg
   - get: docker-confs-repo-stg
   - task: setup docker artifacts
     privileged: true
